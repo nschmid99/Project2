@@ -61,8 +61,11 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-int n=8;
-
+int n=10;
+int co=0;
+int cq=0;
+//Rectangle rr();
+Rectangle rr;
 class FrameDifferencingApp : public App {
   public:
     void setup() override;
@@ -99,8 +102,20 @@ void FrameDifferencingApp::setup()
     
     mPrevFrame.data = NULL;
     mFrameDifference.data = NULL;
+    
+//    int x=getWindowWidth()/n;
+//    int y=getWindowHeight()/n;
+////
+//
+//    for(int i=0;i<=n;i++){
+//          for(int j=0;j<=n;j++){
+//
+//     Rectangle rr(i*x,j*y,x*(i+1),y*(j+1));
+//             // rr.display();
+//
+//          }}
 
-   // char key=getch();
+
     
 }
 
@@ -113,14 +128,14 @@ void FrameDifferencingApp::keyDown( KeyEvent event )
     {
         //TODO: do a thing. Like save the current frame.
     }
-   // if (key==1){
-         n= 6;
-   // }
+  
 
 }
 
 void FrameDifferencingApp::update()
 {
+    int l;
+    int k;
     if(mCapture && mCapture->checkNewFrame()) //is there a new frame???? (& did camera get created?)
     {
         mSurface = mCapture->getSurface();
@@ -133,8 +148,56 @@ void FrameDifferencingApp::update()
     
     //do the frame-differencing
     frameDifference(mFrameDifference);
+    
+//    for( k=0;k<getWindowWidth();k++){    //cycle through thewebcam
+//              for(l=0;l<getWindowHeight();l++){
+//                  mFrameDifference.at<uint8_t>(l,k);    //find value for pixels at (k,l);
+//
+//   std:: cout << "r" <<  mFrameDifference.at<int>(l,k)<<std::endl;
+//              }
+//
+//   // }}
+//    }
+    
+    if(mFrameDifference.data){    //if the matrix isntempty
+        for( k=0;k<getWindowWidth();k++){    //cycle through thewebcam
+                   for(l=0;l<getWindowHeight();l++){
+                       mFrameDifference.at<uint8_t>(l,k);    //find value for pixels at (k,l);
+                        if(mFrameDifference.at<int>(l,k)==255.0){   //if the pixel  has a value of 255 (white)
+                           // std:: cout << "l "<<std::endl;
+                            int x=getWindowWidth()/n;
+                                                    int y=getWindowHeight()/n;
+                                                   for(int i=0;i<=n;i++){
+                                                         for(int j=0;j<=n;j++){
+                                                             if(x*i<l<x*(i+1)){ if(y*i<k<y*(i+1)){
+                                                                   // std:: cout << "works "  <<std::endl;
+                                                                 rr.update();}
+                                                                 else std:: cout << "black "<<std::endl;
+                                                             }}}
+                            
+                        }
+                      
+        //std:: cout << "r" <<  mFrameDifference.at<int>(l,k)<<std::endl;
+                        }}
+         
+        // }}
+         }
+//        if(mFrameDifference.at<uint8_t>(l,k)==255.0){   //if the pixel  has a value of 255 (white)
+//                         std:: cout << "l,k "<<std::endl;
+                         //turn rectangle white. find what rectangle pixel is located in
+                      
+                        
+    
 }
-
+//
+//
+//                                      }
+//                                      }}
+            
+        //}//}
+                      
+                    //}
+//}
 
 //find the difference between 2 frames + some useful image processing
 void FrameDifferencingApp::frameDifference(cv::Mat &outputImg)
@@ -181,53 +244,28 @@ void FrameDifferencingApp::frameDifference(cv::Mat &outputImg)
 
 void FrameDifferencingApp::draw()
 {
-   // vector<int> pixel;
-    cv::Mat myMat;
-   
-    int x=getWindowWidth()/n;
-    int y=getWindowHeight()/n;
+  
 
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-         
-    Rectangle rr(i*x,j*y,x*(i+1),y*(j+1));
-            myMat.at<int>(y,x);
-                rr.display();
-           cout << "M = " << endl << " "  << myMat << endl << endl;
-            
-        }}
-     
-       //if(pixel==255){
-          // rr.display();
-         //  gl::clear( Color( 0, 0, 0 ) );
-
-         //  gl::color( 1, 1, 1, 1 );
-           
-       //}
 
         
     gl::clear( Color( 0, 0, 0 ) );
 
     gl::color( 1, 1, 1, 1 );
     
-//            cv::Mat myMat;
-//    pixel =  myMat.at<int>(y, x);
-//    if(pixel==255){
-//        rr.display();
-    
-            
-            
-        
-//
-//    if( mTexture )
-//    {
-//        gl::draw( mTexture );
-//    }
-    
+
     //if the frame difference isn't null, draw it.
     if( mFrameDifference.data )
     {
         gl::draw( gl::Texture::create(fromOcv(mFrameDifference) ) );
+        int x=getWindowWidth()/n;
+         int y=getWindowHeight()/n;
+//
+         for(int i=0;i<=n;i++){
+             for(int j=0;j<=n;j++){
+
+                 Rectangle rr(i*x,j*y,x*(i+1),y*(j+1));
+                 //rr.display();
+             }}
     }
     
 }

@@ -6,10 +6,7 @@
 //
 
 #include "Rectangle.hpp"
-//#include "CinderOpenCV.h"
-//#include "cinder/app/App.h"
-//#include "cinder/app/RendererGl.h"
-//#include "cinder/gl/gl.h"
+
 using namespace ci;
 using namespace ci::app;
 Rectf curSquare;
@@ -17,6 +14,7 @@ int x1;
 int x2;
 int y;
 int y2;
+//int c;
 Rectangle::Rectangle(){     //create rectangle class
 }
 Rectangle::Rectangle(int xo, int yo,int xs,int ys){     //initialize rectangle class
@@ -26,8 +24,29 @@ Rectangle::Rectangle(int xo, int yo,int xs,int ys){     //initialize rectangle c
     y2=ys;      //bottom right corner ypos
    curSquare = Rectf(x1, y, x2, y2); //x1, y1 is top left corner x2, y2 is bottom right corner
 }
+void Rectangle::update(){
+    //if(c==1){
+//    gl::clear( Color( 0, 0, 0 ) );
+//
+//    gl::color( 1, 0, 0, .5 );
+//    display();
+     //gl::clear( Color( 0, 0, 0 ) );
+   // display();
+    // gl::color( 1, 1, 1, 1 );   //set  color to white
+   // gl::drawSolidRect(curSquare);
+       std:: cout << "white " << std::endl;
+    //}
+//    if(c==0){
+//        gl::clear( Color( 0, 0, 0 ) );
+//
+//        //gl::color( 0, 0, 0, 0 );   //set color to black
+//        //std:: cout << "black " << std::endl;
+//    }
+}
 
 void Rectangle::display(){
+    //gl::clear( Color( 0, 0, 0 ) );
+     // gl::color( 0, 0, 0, 0 );
     gl::drawSolidRect(curSquare);   //when called draws square to screen
 }
 
