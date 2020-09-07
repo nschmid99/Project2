@@ -61,7 +61,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-int n=10;
+int n=6;
 int co=0;
 int cq=0;
 //Rectangle rr();
@@ -103,17 +103,6 @@ void FrameDifferencingApp::setup()
     mPrevFrame.data = NULL;
     mFrameDifference.data = NULL;
     
-//    int x=getWindowWidth()/n;
-//    int y=getWindowHeight()/n;
-////
-//
-//    for(int i=0;i<=n;i++){
-//          for(int j=0;j<=n;j++){
-//
-//     Rectangle rr(i*x,j*y,x*(i+1),y*(j+1));
-//             // rr.display();
-//
-//          }}
 
 
     
@@ -127,10 +116,29 @@ void FrameDifferencingApp::keyDown( KeyEvent event )
     if(event.getChar() == 'a')
     {
         //TODO: do a thing. Like save the current frame.
-        gl::clear( Color( 0, 0, 0 ) );
-        gl::color( 1, 0, 0, 1 );
-        std::cout<<"key"<<std::endl;
+       // gl::clear( Color( 0, 0, 0 ) );
+        n=5;
+        rr.update(1,0,0);
+        std::cout<<"key"<<n<<std::endl;
     }
+    
+    if(event.getChar() == 'b')
+       {
+           //TODO: do a thing. Like save the current frame.
+          // gl::clear( Color( 0, 0, 0 ) );
+           n=9;
+           rr.update(0,1,0);
+           std::cout<<"key"<<n<<std::endl;
+       }
+    
+    if(event.getChar() == 'c')
+          {
+              //TODO: do a thing. Like save the current frame.
+             // gl::clear( Color( 0, 0, 0 ) );
+              n=24;
+              rr.update(0,0,1);
+              std::cout<<"key"<<n<<std::endl;
+          }
   
 
 }
@@ -152,48 +160,30 @@ void FrameDifferencingApp::update()
     //do the frame-differencing
     frameDifference(mFrameDifference);
     
-//    for( k=0;k<getWindowWidth();k++){    //cycle through thewebcam
-//              for(l=0;l<getWindowHeight();l++){
-//                  mFrameDifference.at<uint8_t>(l,k);    //find value for pixels at (k,l);
-//
-//   std:: cout << "r" <<  mFrameDifference.at<int>(l,k)<<std::endl;
-//              }
-      for( k=0;k<getWindowWidth();k++){    //cycle through thewebcam
-             for(l=0;l<getWindowHeight();l++){
-               mFrameDifference.at<uint8_t>(l,k);    //find value for pixels at (k,l);
-//                  if(mFrameDifference.at<uint8_t>(l,k)==255.0){   //if the pixel  has a value of 255 (white)
-                      //std:: cout << "l "<<pixel<<std::endl;
-//                      int x=getWindowWidth()/n;
-//                                              int y=getWindowHeight()/n;
-//                                             for(int i=0;i<=n;i++){
-//                                                   for(int j=0;j<=n;j++){
-//                                                       if(x*i<l<x*(i+1)){ if(y*i<k<y*(i+1)){
-                                                             // std:: cout << "works "  <<std::endl;
-                                                           //rr.update();
-                      
-                  //}
-                                                           //else
-                      //std:: cout << "black "<<std::endl;
-                                                       //}}}
+
+     
+                 
                  if(mFrameDifference.data){    //if the matrix isntempty
                  
-                      
-                              std:: cout << "black "<< std::endl;
+                    //  if(mFrameDifference.at<uint8_t>(l,k)){
+//                     std:: cout << "l/k "<< l<< "+"<<k<<std::endl;
                        
-
-                        }
-
+                      for( k=0;k<getWindowWidth();k++){    //cycle through thewebcam
+                                  for(l=0;l<getWindowHeight();l++){
+                                        
+                                    if(mFrameDifference.at<int8_t>(k,l)!=0){
+                                         // std::cout<<"yay"<<std::endl;
+                                      }
+                                   
+                                  //if rectangle contains pixel!=0, rect color, else rect 0
+                                     
                   }
                 
-  
+             }
                   }
 
     
-    
-//        if(mFrameDifference.at<uint8_t>(l,k)==255.0){   //if the pixel  has a value of 255 (white)
-//                         std:: cout << "l,k "<<std::endl;
-                         //turn rectangle white. find what rectangle pixel is located in
-                      
+
                         
     
 }
@@ -248,24 +238,30 @@ void FrameDifferencingApp::draw()
 
 
         
-    gl::clear( Color( 0, 0, 0 ) );
+   gl::clear( Color( 0, 0, 0 ) );
 
     gl::color( 1, 1, 1, 1 );
     
-
+    int x=getWindowWidth()/n;
+             int y=getWindowHeight()/n;
+    //
+             for(int i=0;i<n+1;i++){
+                 for(int j=0;j<n+1;j++){
+                    // int q=1;
+                     int t=i*x;
+                     int u=j*y;
+                     int v=x*(i+1);
+                     int s=y*(j+1);
+                     Rectangle rr(t,u,v,s);
+                     std::cout<<"t,u,v,x"<<t<<"''"<<u<<"'"<<v<<"."<<s<<std::endl;
+                     rr.display();
+                    // q++;
+                 }}
     //if the frame difference isn't null, draw it.
     if( mFrameDifference.data )
     {
         gl::draw( gl::Texture::create(fromOcv(mFrameDifference) ) );
-        int x=getWindowWidth()/n;
-         int y=getWindowHeight()/n;
-//
-         for(int i=0;i<=n;i++){
-             for(int j=0;j<=n;j++){
-
-                 Rectangle rr(i*x,j*y,x*(i+1),y*(j+1));
-                 //rr.display();
-             }}
+        
     }
     
 }

@@ -16,7 +16,8 @@ public:
     
     void run();
     void display();
-    void update();//int c);
+    void update(int r1, int g1, int b1);//int c);
+    //bool haspoint();
    
     
 };
