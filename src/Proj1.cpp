@@ -124,9 +124,12 @@ void FrameDifferencingApp::keyDown( KeyEvent event )
     //TODO: save the current frame as the background image when user hits a key
     
     //eg:
-    if(event.getChar() == ' ')
+    if(event.getChar() == 'a')
     {
         //TODO: do a thing. Like save the current frame.
+        gl::clear( Color( 0, 0, 0 ) );
+        gl::color( 1, 0, 0, 1 );
+        std::cout<<"key"<<std::endl;
     }
   
 
@@ -155,33 +158,38 @@ void FrameDifferencingApp::update()
 //
 //   std:: cout << "r" <<  mFrameDifference.at<int>(l,k)<<std::endl;
 //              }
-//
-//   // }}
-//    }
-    
-    if(mFrameDifference.data){    //if the matrix isntempty
-        for( k=0;k<getWindowWidth();k++){    //cycle through thewebcam
-                   for(l=0;l<getWindowHeight();l++){
-                       mFrameDifference.at<uint8_t>(l,k);    //find value for pixels at (k,l);
-                        if(mFrameDifference.at<int>(l,k)==255.0){   //if the pixel  has a value of 255 (white)
-                           // std:: cout << "l "<<std::endl;
-                            int x=getWindowWidth()/n;
-                                                    int y=getWindowHeight()/n;
-                                                   for(int i=0;i<=n;i++){
-                                                         for(int j=0;j<=n;j++){
-                                                             if(x*i<l<x*(i+1)){ if(y*i<k<y*(i+1)){
-                                                                   // std:: cout << "works "  <<std::endl;
-                                                                 rr.update();}
-                                                                 else std:: cout << "black "<<std::endl;
-                                                             }}}
-                            
-                        }
+      for( k=0;k<getWindowWidth();k++){    //cycle through thewebcam
+             for(l=0;l<getWindowHeight();l++){
+               mFrameDifference.at<uint8_t>(l,k);    //find value for pixels at (k,l);
+//                  if(mFrameDifference.at<uint8_t>(l,k)==255.0){   //if the pixel  has a value of 255 (white)
+                      //std:: cout << "l "<<pixel<<std::endl;
+//                      int x=getWindowWidth()/n;
+//                                              int y=getWindowHeight()/n;
+//                                             for(int i=0;i<=n;i++){
+//                                                   for(int j=0;j<=n;j++){
+//                                                       if(x*i<l<x*(i+1)){ if(y*i<k<y*(i+1)){
+                                                             // std:: cout << "works "  <<std::endl;
+                                                           //rr.update();
                       
-        //std:: cout << "r" <<  mFrameDifference.at<int>(l,k)<<std::endl;
-                        }}
-         
-        // }}
-         }
+                  //}
+                                                           //else
+                      //std:: cout << "black "<<std::endl;
+                                                       //}}}
+                 if(mFrameDifference.data){    //if the matrix isntempty
+                 
+                      
+                              std:: cout << "black "<< std::endl;
+                       
+
+                        }
+
+                  }
+                
+  
+                  }
+
+    
+    
 //        if(mFrameDifference.at<uint8_t>(l,k)==255.0){   //if the pixel  has a value of 255 (white)
 //                         std:: cout << "l,k "<<std::endl;
                          //turn rectangle white. find what rectangle pixel is located in
@@ -189,15 +197,7 @@ void FrameDifferencingApp::update()
                         
     
 }
-//
-//
-//                                      }
-//                                      }}
-            
-        //}//}
-                      
-                    //}
-//}
+
 
 //find the difference between 2 frames + some useful image processing
 void FrameDifferencingApp::frameDifference(cv::Mat &outputImg)
