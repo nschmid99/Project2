@@ -61,7 +61,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-int n=6;
+float n=6;
 int co=0;
 int cq=0;
 //Rectangle rr();
@@ -118,8 +118,7 @@ void FrameDifferencingApp::keyDown( KeyEvent event )
         //TODO: do a thing. Like save the current frame.
        // gl::clear( Color( 0, 0, 0 ) );
         n=5;
-        rr.update(1,0,0);
-        std::cout<<"key"<<n<<std::endl;
+       
     }
     
     if(event.getChar() == 'b')
@@ -127,8 +126,7 @@ void FrameDifferencingApp::keyDown( KeyEvent event )
            //TODO: do a thing. Like save the current frame.
           // gl::clear( Color( 0, 0, 0 ) );
            n=9;
-           rr.update(0,1,0);
-           std::cout<<"key"<<n<<std::endl;
+         
        }
     
     if(event.getChar() == 'c')
@@ -136,8 +134,7 @@ void FrameDifferencingApp::keyDown( KeyEvent event )
               //TODO: do a thing. Like save the current frame.
              // gl::clear( Color( 0, 0, 0 ) );
               n=24;
-              rr.update(0,0,1);
-              std::cout<<"key"<<n<<std::endl;
+            //  rr.update(0,0,1);
           }
   
 
@@ -160,27 +157,14 @@ void FrameDifferencingApp::update()
     //do the frame-differencing
     frameDifference(mFrameDifference);
     
-
+   // std::cout<<mFrameDifference.type()<<std::endl;
      
                  
                  if(mFrameDifference.data){    //if the matrix isntempty
                  
-                    //  if(mFrameDifference.at<uint8_t>(l,k)){
-//                     std:: cout << "l/k "<< l<< "+"<<k<<std::endl;
-                       
-                      for( k=0;k<getWindowWidth();k++){    //cycle through thewebcam
-                                  for(l=0;l<getWindowHeight();l++){
-                                        
-                                    if(mFrameDifference.at<int8_t>(k,l)!=0){
-                                         // std::cout<<"yay"<<std::endl;
-                                      }
-                                   
-                                  //if rectangle contains pixel!=0, rect color, else rect 0
-                                     
-                  }
                 
              }
-                  }
+                  
 
     
 
@@ -235,8 +219,7 @@ void FrameDifferencingApp::frameDifference(cv::Mat &outputImg)
 void FrameDifferencingApp::draw()
 {
   
-
-
+ //color change in draw. like fill
         
    gl::clear( Color( 0, 0, 0 ) );
 
@@ -244,19 +227,35 @@ void FrameDifferencingApp::draw()
     
     int x=getWindowWidth()/n;
              int y=getWindowHeight()/n;
+    
     //
-             for(int i=0;i<n+1;i++){
-                 for(int j=0;j<n+1;j++){
-                    // int q=1;
-                     int t=i*x;
-                     int u=j*y;
-                     int v=x*(i+1);
-                     int s=y*(j+1);
+             for(int i=0;i<=n;i++){
+                 for(int j=0;j<=n;j++){
+                  
+                     double t=i*x;
+                     double u=j*y;
+                     double v=x*(i+1);
+                     double s=y*(j+1);
                      Rectangle rr(t,u,v,s);
-                     std::cout<<"t,u,v,x"<<t<<"''"<<u<<"'"<<v<<"."<<s<<std::endl;
-                     rr.display();
-                    // q++;
+                     gl::color(1, 1, 1, 1 );
+                     //std::cout<<"t,u,v,x"<<t<<"''"<<u<<"'"<<v<<"."<<s<<std::endl;
+                     //move square code to class. also put framdiffernce draw after
+                     //sum pixels in range divided by something that relates to n and numpixels.
+                     //dont forget .at is y value first and x value
+                     cv::Mat pixel = mFrameDifference;
+                    // rr.display();
+                     int sum=0;
+                     for(int o=t; o<v; o++){
+                         for(int q=u; q<s;q++){
+                            sum=sum+pixel.at<uint8_t>(q,o);
+                             //std::cout<<"sum"<<sum<<std::endl;
+                        }
+                         
+                     }
+                    
                  }}
+    
+    
     //if the frame difference isn't null, draw it.
     if( mFrameDifference.data )
     {
