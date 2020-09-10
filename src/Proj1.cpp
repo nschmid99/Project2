@@ -112,38 +112,28 @@ void FrameDifferencingApp::keyDown( KeyEvent event )
 {
     //TODO: save the current frame as the background image when user hits a key
     
-    //eg:
+
     if(event.getChar() == 'a')
     {
-        //TODO: do a thing. Like save the current frame.
-       // gl::clear( Color( 0, 0, 0 ) );
         n=5;
-       
     }
-    
+
     if(event.getChar() == 'b')
        {
-           //TODO: do a thing. Like save the current frame.
-          // gl::clear( Color( 0, 0, 0 ) );
            n=9;
-         
        }
-    
+
     if(event.getChar() == 'c')
           {
-              //TODO: do a thing. Like save the current frame.
-             // gl::clear( Color( 0, 0, 0 ) );
               n=24;
-            //  rr.update(0,0,1);
           }
-  
+
 
 }
 
 void FrameDifferencingApp::update()
 {
-    int l;
-    int k;
+  
     if(mCapture && mCapture->checkNewFrame()) //is there a new frame???? (& did camera get created?)
     {
         mSurface = mCapture->getSurface();
@@ -225,35 +215,10 @@ void FrameDifferencingApp::draw()
 
     gl::color( 1, 1, 1, 1 );
     
-    int x=getWindowWidth()/n;
-             int y=getWindowHeight()/n;
+    int width=getWindowWidth()/n;
+    int height=getWindowHeight()/n;
+   cv::Mat pixel = mFrameDifference;    //set pixel matrix to frame difference matrix
     
-    //
-             for(int i=0;i<=n;i++){
-                 for(int j=0;j<=n;j++){
-                  
-                     double t=i*x;
-                     double u=j*y;
-                     double v=x*(i+1);
-                     double s=y*(j+1);
-                     Rectangle rr(t,u,v,s);
-                     gl::color(1, 1, 1, 1 );
-                     //std::cout<<"t,u,v,x"<<t<<"''"<<u<<"'"<<v<<"."<<s<<std::endl;
-                     //move square code to class. also put framdiffernce draw after
-                     //sum pixels in range divided by something that relates to n and numpixels.
-                     //dont forget .at is y value first and x value
-                     cv::Mat pixel = mFrameDifference;
-                    // rr.display();
-                     int sum=0;
-                     for(int o=t; o<v; o++){
-                         for(int q=u; q<s;q++){
-                            sum=sum+pixel.at<uint8_t>(q,o);
-                             //std::cout<<"sum"<<sum<<std::endl;
-                        }
-                         
-                     }
-                    
-                 }}
     
     
     //if the frame difference isn't null, draw it.
@@ -261,8 +226,35 @@ void FrameDifferencingApp::draw()
     {
         gl::draw( gl::Texture::create(fromOcv(mFrameDifference) ) );
         
+        for(int i=0;i<=n;i++){  //makes nxn grid of rectangles
+            for(int j=0;j<=n;j++){
+             
+                int x1=i*width;
+                int y1=j*height;
+                int x2=width*(i+1);
+                int y2=height*(j+1);
+                Rectangle rr(x1,y1,x2,y2);  //initializes rectangle
+
+                int sum=0;
+                
+                for(int o=x1; o<x2; o++){       //gets square boundaries
+                    for(int q=y1; q<y2;q++){
+                      
+                       sum=sum+pixel.at<uint8_t>(q,o);  //adds together all the pixel values
+                   }
+                   
+                    
+                }
+               if(sum>=255){  //if there are multiple white pixels, change color and display rectangle
+                   gl::color( 0, 1,0, .5 );
+                    rr.display();
+
+                                                                 }
+            }}
+       
+        }
+        
     }
     
-}
 
 CINDER_APP( FrameDifferencingApp, RendererGl )
