@@ -16,7 +16,7 @@ public:
     
     void run();
     void display();
-    void update();
+
     
    
     

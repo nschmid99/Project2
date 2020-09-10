@@ -65,7 +65,7 @@ float n=6;
 int co=0;
 int cq=0;
 //Rectangle rr();
-Rectangle rr;
+//Rectangle rr;
 class FrameDifferencingApp : public App {
   public:
     void setup() override;
@@ -92,7 +92,7 @@ void FrameDifferencingApp::setup()
 {
     //set up our camera
     try {
-        mCapture = Capture::create(640, 480); //first default camera
+        mCapture = Capture::create(1000, 1000); //first default camera
         mCapture->start();
     }
     catch( ci::Exception &exc)
@@ -113,17 +113,19 @@ void FrameDifferencingApp::keyDown( KeyEvent event )
     //TODO: save the current frame as the background image when user hits a key
     
 
-    if(event.getChar() == 'a')
+    if(event.getChar() == 'a')  //changes square number to 5  to form a 5x5 grid when key a is pressed
     {
         n=5;
     }
 
-    if(event.getChar() == 'b')
+    if(event.getChar() == 'b')  //changes square number to 9  to form a 9x9 grid when key b is pressed
+
        {
            n=9;
        }
 
-    if(event.getChar() == 'c')
+    if(event.getChar() == 'c')  //changes square number to 24  to form a 24x24 grid when key c is pressed
+
           {
               n=24;
           }
@@ -147,7 +149,7 @@ void FrameDifferencingApp::update()
     //do the frame-differencing
     frameDifference(mFrameDifference);
     
-   // std::cout<<mFrameDifference.type()<<std::endl;
+   // std::cout<<mFrameDifference.type()<<std::endl; //check what type the matrix  is
      
                  
                  if(mFrameDifference.data){    //if the matrix isntempty
@@ -215,8 +217,8 @@ void FrameDifferencingApp::draw()
 
     gl::color( 1, 1, 1, 1 );
     
-    int width=getWindowWidth()/n;
-    int height=getWindowHeight()/n;
+    int width=getWindowWidth()/n;   //divides width by n
+    int height=getWindowHeight()/n; //divides height by n
    cv::Mat pixel = mFrameDifference;    //set pixel matrix to frame difference matrix
     
     
@@ -235,7 +237,7 @@ void FrameDifferencingApp::draw()
                 int y2=height*(j+1);
                 Rectangle rr(x1,y1,x2,y2);  //initializes rectangle
 
-                int sum=0;
+                int sum=0;  //initializes sum and sets it equal to 0
                 
                 for(int o=x1; o<x2; o++){       //gets square boundaries
                     for(int q=y1; q<y2;q++){
@@ -245,9 +247,9 @@ void FrameDifferencingApp::draw()
                    
                     
                 }
-               if(sum>=255){  //if there are multiple white pixels, change color and display rectangle
-                   gl::color( 0, 1,0, .5 );
-                    rr.display();
+               if(sum>3500){  //if there are multiple white pixels, change color and display rectangle
+                   gl::color( 0, 1,0, .5 ); //sets rectangle color to green
+                    rr.display();   //displays rectangle
 
                                                                  }
             }}
