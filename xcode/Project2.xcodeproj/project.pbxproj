@@ -17,7 +17,6 @@
 		00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995581B128DF400A5C623 /* IOKit.framework */; };
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
 		04AFD201FB6F4406A1A9E47B /* Proj1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77092921F7934A1D9B9D71BA /* Proj1.cpp */; };
-		186479152501884B00BE6D3F /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 186479132501884B00BE6D3F /* Rectangle.cpp */; };
 		2B7D5D83F0CC43AAAFAD47DC /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = F1A2D6F64174473F9C41E9CF /* CinderApp.icns */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -36,8 +35,6 @@
 		00B995591B128DF400A5C623 /* IOSurface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOSurface.framework; path = System/Library/Frameworks/IOSurface.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		1864791025006B7900BE6D3F /* CinderOpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CinderOpenCV.h; path = ../../../../Downloads/CinderOpenCV.h; sourceTree = "<group>"; };
-		186479132501884B00BE6D3F /* Rectangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rectangle.cpp; sourceTree = "<group>"; };
-		186479142501884B00BE6D3F /* Rectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rectangle.hpp; sourceTree = "<group>"; };
 		2389DC4B79B54B198BAF0ABA /* Proj1_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Proj1_Prefix.pch; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -85,7 +82,6 @@
 			isa = PBXGroup;
 			children = (
 				77092921F7934A1D9B9D71BA /* Proj1.cpp */,
-				186479132501884B00BE6D3F /* Rectangle.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -149,7 +145,6 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				186479142501884B00BE6D3F /* Rectangle.hpp */,
 				1864791025006B7900BE6D3F /* CinderOpenCV.h */,
 				74A35CF738884276B84BC857 /* Resources.h */,
 				2389DC4B79B54B198BAF0ABA /* Proj1_Prefix.pch */,
@@ -265,7 +260,6 @@
 			files = (
 				04AFD201FB6F4406A1A9E47B /* Proj1.cpp in Sources */,
 				C3579C1210C14B718F7421CB /* Osc.cpp in Sources */,
-				186479152501884B00BE6D3F /* Rectangle.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

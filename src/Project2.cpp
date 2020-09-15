@@ -66,7 +66,7 @@ int co=0;
 int cq=0;
 //Rectangle rr();
 //Rectangle rr;
-class FrameDifferencingApp : public App {
+class Project2App : public App {
   public:
     void setup() override;
     void keyDown( KeyEvent event ) override;
@@ -88,7 +88,7 @@ class FrameDifferencingApp : public App {
 };
 
 //initialization
-void FrameDifferencingApp::setup()
+void Project2App::setup()
 {
     //set up our camera
     try {
@@ -108,7 +108,7 @@ void FrameDifferencingApp::setup()
     
 }
 
-void FrameDifferencingApp::keyDown( KeyEvent event )
+void Project2App::keyDown( KeyEvent event )
 {
     //TODO: save the current frame as the background image when user hits a key
     
@@ -133,7 +133,7 @@ void FrameDifferencingApp::keyDown( KeyEvent event )
 
 }
 
-void FrameDifferencingApp::update()
+void Project2App::update()
 {
   
     if(mCapture && mCapture->checkNewFrame()) //is there a new frame???? (& did camera get created?)
@@ -166,7 +166,7 @@ void FrameDifferencingApp::update()
 
 
 //find the difference between 2 frames + some useful image processing
-void FrameDifferencingApp::frameDifference(cv::Mat &outputImg)
+void Project2App::frameDifference(cv::Mat &outputImg)
 {
     
     outputImg.data = NULL;
@@ -208,7 +208,7 @@ void FrameDifferencingApp::frameDifference(cv::Mat &outputImg)
     mPrevFrame = curFrame;
 }
 
-void FrameDifferencingApp::draw()
+void Project2App::draw()
 {
   
  //color change in draw. like fill
