@@ -42,7 +42,7 @@
 #include "cinder/Capture.h" //add - needed for capture
 #include "cinder/Log.h" //add - needed to log errors
 #include "Rectangle.hpp"
-
+#include<numeric>
 #define SAMPLE_WINDOW_MOD 300 //how often we find new features -- that is 1/300 frames we will find some features
 #define MAX_FEATURES 300 //The maximum number of features to track. Experiment with changing this number
 
@@ -51,12 +51,16 @@ using namespace cinder;
 using namespace ci::app;
 using namespace std;
 
+int n=6;
+
 class FeatureTrackingApp : public App {
   public:
     void setup() override;
     void mouseDown( MouseEvent event ) override;
+    void keyDown( KeyEvent event ) override;
     void update() override;
     void draw() override;
+    
 protected:
     CaptureRef                 mCapture; //uses video camera to capture frames of data.
     gl::TextureRef             mTexture; //the current frame of visual data in OpenGL format.
@@ -76,7 +80,7 @@ void FeatureTrackingApp::setup()
 {
     //set up our camera
     try {
-        mCapture = Capture::create(640, 480); //first default camera
+        mCapture = Capture::create(1000, 1000); //first default camera
         mCapture->start();
     }
     catch( ci::Exception &exc)
@@ -90,24 +94,33 @@ void FeatureTrackingApp::setup()
 //maybe you will add mouse functionality!
 void FeatureTrackingApp::mouseDown( MouseEvent event )
 {
-    //CODE FROM PROJECT1
-//    if(event.getChar() == 'a')  //changes square number to 5  to form a 5x5 grid when key a is pressed
-//       {
-//           n=5;
-//       }
-//
-//       if(event.getChar() == 'b')  //changes square number to 9  to form a 9x9 grid when key b is pressed
-//
-//          {
-//              n=9;
-//          }
-//
-//       if(event.getChar() == 'c')  //changes square number to 24  to form a 24x24 grid when key c is pressed
-//
-//             {
-//                 n=24;
-//             }
+   
 }
+
+void FeatureTrackingApp::keyDown( KeyEvent event )
+{
+    //CODE FROM PROJECT1
+    if(event.getChar() == 'a')  //changes square number to 5  to form a 5x5 grid when key a is pressed
+       {
+           n=5;
+           std::cout<<"5"<<std::endl;
+       }
+
+       if(event.getChar() == 'b')  //changes square number to 9  to form a 9x9 grid when key b is pressed
+
+          {
+              n=9;
+                    std::cout<<"9"<<std::endl;
+          }
+
+       if(event.getChar() == 'c')  //changes square number to 24  to form a 24x24 grid when key c is pressed
+
+             {
+                 n=24;
+                       std::cout<<"24"<<std::endl;
+             }
+}
+
 
 void FeatureTrackingApp::update()
 {
@@ -179,6 +192,11 @@ void FeatureTrackingApp::findOpticalFlow()
 
 void FeatureTrackingApp::draw()
 {
+    int width=getWindowWidth()/n;   //divides width by n
+           int height=getWindowHeight()/n;
+    int sum;
+//    cv::Mat features = cv::Mat(mFeatures);    //set features matrix to features matrix
+//    cv::Point2f mFeatures= features.at<cv::Point2f>(0,0);
     gl::clear( Color( 0, 0, 0 ) );
     
     //color the camera frame normally
@@ -190,7 +208,36 @@ void FeatureTrackingApp::draw()
     {
         gl::draw( mTexture );
     }
+    //draw grid nxn
+    for(int i=0;i<=n;i++){  //makes nxn grid of rectangles
+                   for(int j=0;j<=n;j++){
     
+        int x1=i*width;
+        int y1=j*height;
+        int x2=width*(i+1);
+        int y2=height*(j+1);
+        Rectangle rr(x1,y1,x2,y2);  //initializes rectangle
+            for(int o=x1; o<x2; o++){       //gets square boundaries
+            for(int q=y1; q<y2;q++){
+              sum=  accumulate(mFeatureStatuses.begin(),mFeatureStatuses.end(),0); // code modified from https://en.cppreference.com/w/cpp/algorithm/accumulate
+                                                
+              //  std::cout<<sum<<std::endl;
+                
+                if(sum>250){  //if there are multiple white pixels, change color and display rectangle
+                                             gl::color( 0, 1,0, .5 ); //sets rectangle color to green
+                                              rr.display();   //displays rectangle
+
+                                                                                           }
+            }
+    
+                   }
+                      
+                       
+                   }}
+    
+    
+    
+                       
     // draw all the old points @ 0.5 alpha (transparency) as a circle outline
     gl::color( 1, 0, 0, 0.55 );
     for( int i=0; i<mPrevFeatures.size(); i++ )
@@ -218,14 +265,14 @@ void FeatureTrackingApp::draw()
     //CODE FROM PROJECT 1 TO BE INTEGRATED
 //    int width=getWindowWidth()/n;   //divides width by n
 //       int height=getWindowHeight()/n; //divides height by n
-//      cv::Mat pixel = mFrameDifference;    //set pixel matrix to frame difference matrix
+//      cv::Mat pixel = mPrevFrame;    //set pixel matrix to frame difference matrix
 //
 //
 //
 //       //if the frame difference isn't null, draw it.
-//       if( mFrameDifference.data )
+//       if( mPrevFrame.data )
 //       {
-//           gl::draw( gl::Texture::create(fromOcv(mFrameDifference) ) );
+//           gl::draw( gl::Texture::create(fromOcv(mPrevFrame) ) );
 //
 //           for(int i=0;i<=n;i++){  //makes nxn grid of rectangles
 //               for(int j=0;j<=n;j++){
@@ -240,7 +287,7 @@ void FeatureTrackingApp::draw()
 //
 //                   for(int o=x1; o<x2; o++){       //gets square boundaries
 //                       for(int q=y1; q<y2;q++){
-//
+//mFeatureStatuses
 //                          sum=sum+pixel.at<uint8_t>(q,o);  //adds together all the pixel values
 //                      }
 //
@@ -256,6 +303,5 @@ void FeatureTrackingApp::draw()
 //           }
 //
 //       }
-}
-
+    }
 CINDER_APP( FeatureTrackingApp, RendererGl )
