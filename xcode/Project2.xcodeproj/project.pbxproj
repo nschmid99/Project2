@@ -18,6 +18,7 @@
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
 		04AFD201FB6F4406A1A9E47B /* Project2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77092921F7934A1D9B9D71BA /* Project2.cpp */; };
 		180633062510522200A52927 /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 180633042510522200A52927 /* Rectangle.cpp */; };
+		18B645012513F89900CAAF98 /* Square.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18B644FF2513F89900CAAF98 /* Square.cpp */; };
 		2B7D5D83F0CC43AAAFAD47DC /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = F1A2D6F64174473F9C41E9CF /* CinderApp.icns */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -38,6 +39,8 @@
 		180633042510522200A52927 /* Rectangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rectangle.cpp; sourceTree = "<group>"; };
 		180633052510522200A52927 /* Rectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rectangle.hpp; sourceTree = "<group>"; };
 		1864791025006B7900BE6D3F /* CinderOpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CinderOpenCV.h; path = ../../../../Downloads/CinderOpenCV.h; sourceTree = "<group>"; };
+		18B644FF2513F89900CAAF98 /* Square.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Square.cpp; sourceTree = "<group>"; };
+		18B645002513F89900CAAF98 /* Square.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Square.hpp; sourceTree = "<group>"; };
 		2389DC4B79B54B198BAF0ABA /* Project2_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Project2_Prefix.pch; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -85,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				77092921F7934A1D9B9D71BA /* Project2.cpp */,
+				18B644FF2513F89900CAAF98 /* Square.cpp */,
 				180633042510522200A52927 /* Rectangle.cpp */,
 			);
 			name = Source;
@@ -152,6 +156,7 @@
 				180633052510522200A52927 /* Rectangle.hpp */,
 				1864791025006B7900BE6D3F /* CinderOpenCV.h */,
 				74A35CF738884276B84BC857 /* Resources.h */,
+				18B645002513F89900CAAF98 /* Square.hpp */,
 				2389DC4B79B54B198BAF0ABA /* Project2_Prefix.pch */,
 			);
 			name = Headers;
@@ -263,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18B645012513F89900CAAF98 /* Square.cpp in Sources */,
 				04AFD201FB6F4406A1A9E47B /* Project2.cpp in Sources */,
 				C3579C1210C14B718F7421CB /* Osc.cpp in Sources */,
 				180633062510522200A52927 /* Rectangle.cpp in Sources */,

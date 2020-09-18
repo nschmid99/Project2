@@ -32,5 +32,6 @@ Rectangle::Rectangle(int xo, int yo,int xs,int ys){     //initialize rectangle c
 
 void Rectangle::display(){
    // gl::color(0,1,0,1);
+  
     gl::drawSolidRect(curSquare);   //when called draws square to screen
 }

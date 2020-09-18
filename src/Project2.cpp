@@ -43,8 +43,8 @@
 #include "cinder/Log.h" //add - needed to log errors
 #include "Rectangle.hpp"
 #include<numeric>
-#define SAMPLE_WINDOW_MOD 300 //how often we find new features -- that is 1/300 frames we will find some features
-#define MAX_FEATURES 300 //The maximum number of features to track. Experiment with changing this number
+#define SAMPLE_WINDOW_MOD 500 //how often we find new features -- that is 1/300 frames we will find some features
+#define MAX_FEATURES 130 //The maximum number of features to track. Experiment with changing this number
 
 
 using namespace cinder;
@@ -208,32 +208,38 @@ void FeatureTrackingApp::draw()
     {
         gl::draw( mTexture );
     }
+    
+   // rr.makeGrid(n);
     //draw grid nxn
-    for(int i=0;i<=n;i++){  //makes nxn grid of rectangles
-                   for(int j=0;j<=n;j++){
     
-        int x1=i*width;
-        int y1=j*height;
-        int x2=width*(i+1);
-        int y2=height*(j+1);
-        Rectangle rr(x1,y1,x2,y2);  //initializes rectangle
-            for(int o=x1; o<x2; o++){       //gets square boundaries
-            for(int q=y1; q<y2;q++){
-              sum=  accumulate(mFeatureStatuses.begin(),mFeatureStatuses.end(),0); // code modified from https://en.cppreference.com/w/cpp/algorithm/accumulate
-                                                
-              //  std::cout<<sum<<std::endl;
-                
-                if(sum>250){  //if there are multiple white pixels, change color and display rectangle
-                                             gl::color( 0, 1,0, .5 ); //sets rectangle color to green
-                                              rr.display();   //displays rectangle
+        for(int i=0;i<=n;i++){  //makes nxn grid of rectangles
+            for(int j=0;j<=n;j++){
+    
+             int x1=i*width;
+             int y1=j*height;
+             int x2=width*(i+1);
+             int y2=height*(j+1);
+             Rectangle rr(x1,y1,x2,y2);  //initializes rectangle
+                            
+                 for(int o=x1; o<x2; o++){       //gets square boundaries
+                 for(int q=y1; q<y2;q++){
+                   sum=accumulate(mFeatureStatuses.begin(),mFeatureStatuses.end(),0); // code modified from https://en.cppreference.com/w/cpp/algorithm/accumulate
+    
+                   //  std::cout<<sum<<std::endl;
+    
+                     if(sum>100){  //if there are is motion
+//                        gl::color( 0, 1,0, .5 );  //sets rectangle color to green
+//                        rr.display();   //displays rectangle
+      std::cout<<"green rect"<<std::endl;
+                                                                                                }
+                 }
+    
+                        }
+    
+    
+                        }}
 
-                                                                                           }
-            }
-    
-                   }
-                      
-                       
-                   }}
+ 
     
     
     
@@ -261,47 +267,5 @@ void FeatureTrackingApp::draw()
     }
     gl::end();
     
-    
-    //CODE FROM PROJECT 1 TO BE INTEGRATED
-//    int width=getWindowWidth()/n;   //divides width by n
-//       int height=getWindowHeight()/n; //divides height by n
-//      cv::Mat pixel = mPrevFrame;    //set pixel matrix to frame difference matrix
-//
-//
-//
-//       //if the frame difference isn't null, draw it.
-//       if( mPrevFrame.data )
-//       {
-//           gl::draw( gl::Texture::create(fromOcv(mPrevFrame) ) );
-//
-//           for(int i=0;i<=n;i++){  //makes nxn grid of rectangles
-//               for(int j=0;j<=n;j++){
-//
-//                   int x1=i*width;
-//                   int y1=j*height;
-//                   int x2=width*(i+1);
-//                   int y2=height*(j+1);
-//                   Rectangle rr(x1,y1,x2,y2);  //initializes rectangle
-//
-//                   int sum=0;  //initializes sum and sets it equal to 0
-//
-//                   for(int o=x1; o<x2; o++){       //gets square boundaries
-//                       for(int q=y1; q<y2;q++){
-//mFeatureStatuses
-//                          sum=sum+pixel.at<uint8_t>(q,o);  //adds together all the pixel values
-//                      }
-//
-//
-//                   }
-//                  if(sum>3500){  //if there are multiple white pixels, change color and display rectangle
-//                      gl::color( 0, 1,0, .5 ); //sets rectangle color to green
-//                       rr.display();   //displays rectangle
-//
-//                                                                    }
-//               }}
-//
-//           }
-//
-//       }
     }
 CINDER_APP( FeatureTrackingApp, RendererGl )
